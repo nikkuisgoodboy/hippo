@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Will You Die?</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body class="bg-dark">
+    <!-- Ghost SVGs -->
+    <svg class="ghost" style="left: 5%; top: 20%" width="50" height="50" viewBox="0 0 24 24">
+        <path fill="#ffffff" d="M12,2A9,9 0 0,0 3,11V22L6,19L9,22L12,19L15,22L18,19L21,22V11A9,9 0 0,0 12,2M12,4A7,7 0 0,1 19,11V17.92L17,15.92L14,18.92L11,15.92L8,18.92L5,15.92V11A7,7 0 0,1 12,4M12,6A3,3 0 0,0 9,9A3,3 0 0,0 12,12A3,3 0 0,0 15,9A3,3 0 0,0 12,6M8,14H16V16H8V14Z" />
+    </svg>
+
+    <svg class="ghost" style="right: 10%; top: 30%" width="50" height="50" viewBox="0 0 24 24">
+        <path fill="#ffffff" d="M12,2A9,9 0 0,0 3,11V22L6,19L9,22L12,19L15,22L18,19L21,22V11A9,9 0 0,0 12,2M12,4A7,7 0 0,1 19,11V17.92L17,15.92L14,18.92L11,15.92L8,18.92L5,15.92V11A7,7 0 0,1 12,4M12,6A3,3 0 0,0 9,9A3,3 0 0,0 12,12A3,3 0 0,0 15,9A3,3 0 0,0 12,6M8,14H16V16H8V14Z" />
+    </svg>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h1 class="mb-4 title-glow">How Will You Die?</h1>
+                <p class="mb-5 h5">Your destiny is written in blood... Shall we reveal it?</p>
+
+                <div class="card bg-dark-subtle p-4 mb-4">
+                    <form id="predictionForm" action="{{ url_for('predict_death') }}" method="POST">
+                        <div class="mb-4">
+                            <label for="name" class="form-label glowing-text">Your Full Name</label>
+                            <input type="text" class="form-control form-control-lg input-glow" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="birthDate" class="form-label glowing-text">Birth Date</label>
+                            <input type="date" class="form-control form-control-lg input-glow" id="birthDate" name="birthDate" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="description" class="form-label glowing-text">Tell Us About Yourself</label>
+                            <textarea class="form-control form-control-lg input-glow" id="description" name="description" rows="3" placeholder="What kind of person are you? What are your interests, fears, and dreams?" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-danger btn-lg pulse-button">
+                            <i class="fas fa-skull me-2"></i> Reveal My Fate
+                        </button>
+                    </form>
+                </div>
+
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i> {{ error }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingIndicator" class="d-none text-center">
+        <div class="spinner-border text-danger mb-3" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="h5 mb-0">Consulting the dark forces...</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
